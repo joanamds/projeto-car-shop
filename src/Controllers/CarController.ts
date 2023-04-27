@@ -17,13 +17,7 @@ class CarController {
 
   public async create() {
     const car: ICar = {
-      model: this.req.body.model,
-      year: this.req.body.year,
-      color: this.req.body.color,
-      status: this.req.body.status,
-      buyValue: this.req.body.buyValue,
-      doorsQty: this.req.body.doorsQty,
-      seatsQty: this.req.body.seatsQty,
+      ...this.req.body,
     };
 
     try {
@@ -31,6 +25,24 @@ class CarController {
       return this.res.status(201).json(newCar);
     } catch (error) {
       return this.next(error);
+    }
+  }
+
+  public async findAll() {
+    const cars = await this.service.findAll();
+    return this.res.status(200).json(cars);
+  }
+
+  public async findById() {
+    const { id } = this.req.params;
+    try {
+      const car = await this.service.findById(id);
+      if (car) {
+        return this.res.status(200).json(car);
+      }
+      return this.res.status(404).json({ message: 'Car not found' });
+    } catch (error: any) {
+      return this.res.status(422).json({ message: error.message });
     }
   }
 }

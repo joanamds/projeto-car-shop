@@ -20,26 +20,6 @@ class Car {
     this.doorsQty = car.doorsQty;
     this.seatsQty = car.seatsQty;
   }
-
-  public getModel() {
-    return this.model;
-  }
-
-  public getYear() {
-    return this.year;
-  }
-
-  public getColor() {
-    return this.color;
-  }
-
-  public getStatus() {
-    return this.status;
-  }
-
-  public getBuyValue() {
-    return this.buyValue;
-  }
 }
 
 export default Car;
