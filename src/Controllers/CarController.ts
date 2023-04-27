@@ -45,6 +45,23 @@ class CarController {
       return this.res.status(422).json({ message: error.message });
     }
   }
+
+  public async update() {
+    const { id } = this.req.params;
+    const updateCar: ICar = {
+      id,
+      ...this.req.body,
+    };
+    try {
+      const carUpdate = await this.service.update(id, updateCar);
+      if (carUpdate) {
+        return this.res.status(200).json(updateCar);
+      }
+      return this.res.status(404).json({ message: 'Car not found' });
+    } catch (error: any) {
+      return this.res.status(422).json({ message: error.message });
+    }
+  }
 }
 
 export default CarController;

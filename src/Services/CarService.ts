@@ -29,6 +29,14 @@ class CarService {
     }
     return null;
   }
+
+  public async update(id: string, obj: ICar) {
+    const updateCar = await carODM.update(id, obj);
+    if (updateCar) {
+      return new Car(updateCar);
+    }
+    return null;
+  }
 }
 
 export default CarService;

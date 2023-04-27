@@ -4,6 +4,7 @@ import {
   models,
   Schema,
   model,
+  UpdateQuery,
 } from 'mongoose';
 
 export default abstract class CarShopODM<T> {
@@ -28,5 +29,13 @@ export default abstract class CarShopODM<T> {
   public async findById(id: string): Promise<T | null> {
     if (!isValidObjectId(id)) throw Error('Invalid mongo id');
     return this.model.findById(id);
+  }
+
+  public async update(_id: string, obj: Partial<T>): Promise<T | null> {
+    if (!isValidObjectId(_id)) throw Error('Invalid mongo id');
+    return this.model.findByIdAndUpdate(
+      { _id },
+      { ...obj } as UpdateQuery<T>,
+    );
   }
 }
